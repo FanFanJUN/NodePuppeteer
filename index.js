@@ -1,9 +1,9 @@
-import test from "./src/test.js";
+import npmDown from "./src/npmDown.js";
 import specialCertificate from "./src/specialCertificate.js";
 console.log(process.argv);
 
 const scripts = {
-  test: test,
+  npmDown: npmDown,
   special_certificate: specialCertificate,
 };
 const scriptName = process.argv[2];
