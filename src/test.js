@@ -10,21 +10,23 @@ const test = async () => {
   const page = await browser.newPage();
 
   // Navigate the page to a URL.
-  await page.goto("https://pptr.nodejs.cn/", {
+  await page.goto("https://nodejs.cn/", {
     waitUntil: "load",
     timeout: 60000,
   });
 
-  await page.waitForSelector(
-    "#__docusaurus_skipToContent_fallback > div > div > main > div > div > div > div > article > div > header > h1"
-  );
+  await page.waitForSelector('[class="cate_item"]');
   const result = await page.evaluate(() => {
-    const title = document.querySelector(
-      "#__docusaurus_skipToContent_fallback > div > div > main > div > div > div > div > article > div > header > h1"
-    ).innerText;
-    return { title };
+    const titleList = document.querySelectorAll(
+      '#partner_item_box [class="cate_item"] [class="partner_item"] [class="partner_name"]'
+    );
+    let title = [];
+    titleList.forEach((element) => {
+      title.push(element.innerText);
+    });
+    return title;
   });
-  console.log(result);
+  console.log(JSON.stringify(result));
 
   await browser.close();
 };
