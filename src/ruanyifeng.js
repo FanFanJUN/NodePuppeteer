@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { fsWrite } from "./util/index.js";
+import { fsMd, fsWrite } from "./util/index.js";
 // Or import puppeteer from 'puppeteer-core';
 
 const getPageData = async () => {
@@ -30,7 +30,9 @@ const getPageData = async () => {
       });
     }
   );
-  await fsWrite("ruanyifeng", res);
+  const title = await page.title();
+
+  await fsWrite("ruanyifeng", fsMd(res, title), "md");
   await browser.close();
 };
 

@@ -4,7 +4,7 @@ import moment from "moment";
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-const fsWrite = async (folder, data) => {
+const fsWrite = async (folder, data, fileType = "json") => {
   // 使用 fs.writeFile 写入文件
   // 检查文件夹是否存在，如果不存在则创建
   const folderPath =
@@ -12,13 +12,13 @@ const fsWrite = async (folder, data) => {
 
   const filePath = path.join(
     folderPath,
-    `/${moment(moment.now()).format("YYYY-MM-DD")}.json`
+    `/${moment(moment.now()).format("YYYY-MM-DD")}.${fileType}`
   );
   console.log(folderPath);
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath);
   }
-  await fs.writeFileSync(filePath, JSON.stringify(data), (err) => {
+  await fs.writeFileSync(filePath, data, (err) => {
     if (err) {
       console.error("写入文件时出现错误：", err);
     } else {
@@ -27,4 +27,9 @@ const fsWrite = async (folder, data) => {
   });
 };
 
-export { __dirname, fsWrite };
+const fsMd = (data, bigTitle = "") => {
+  const dataList = data.map((item) => `🎉  [${item.title}](${item.url})<br>`);
+  return `## ${bigTitle}<br><br>` + dataList.join(" ");
+};
+
+export { __dirname, fsWrite, fsMd };

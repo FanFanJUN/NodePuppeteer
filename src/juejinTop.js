@@ -1,10 +1,6 @@
 import puppeteer from "puppeteer";
-import fs from "fs";
-import path from "path";
-import { fsWrite } from "./util/index.js";
+import { fsMd, fsWrite } from "./util/index.js";
 // Or import puppeteer from 'puppeteer-core';
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
 const juejinTop = async () => {
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({
@@ -28,19 +24,21 @@ const juejinTop = async () => {
   );
 
   // Navigate the page to a URL.
-  await page.goto("https://juejin.cn/hot/articles", {
+  await page.goto("https://juejin.cn/hot/articles/6809637767543259144", {
     waitUntil: "load",
     timeout: 60000,
   });
-  await page.waitForSelector(
-    ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3)"
+  /* await page.waitForSelector(
+    ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3) a span"
   );
 
   // 找到特定元素并触发点击事件
-  await page.$eval(
-    ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3)",
-    (element) => element.click()
+  const ele = await page.$(
+    ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3)"
   );
+  console.log(ele);
+
+  await ele.click(); */
 
   //  page.$$eva 获取页面上所有的 <a> 元素的文本内容，但不能直接触发点击事件
   /* const resc = await page.$$eval(
@@ -75,6 +73,8 @@ const juejinTop = async () => {
   await page.waitForSelector(
     ".hot-list-wrap .hot-list .article-item-wrap .article-item-left .article-detail >  .article-title"
   );
+
+  await page.waitForTimeout(1000 * 2);
   const res = await page.$$(
     ".hot-list-wrap .hot-list .article-item-wrap .article-item-left .article-detail >  .article-title"
   );
@@ -99,8 +99,8 @@ const juejinTop = async () => {
   }
 
   console.log(articleList);
-
-  await fsWrite("juejinTop", articleList);
+  const title = await page.title();
+  await fsWrite("juejinTop", fsMd(articleList, title), "md");
   await browser.close();
 };
 
