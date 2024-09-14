@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 import path from "path";
-import moment from "moment";
+import { fsWrite } from "./util/index.js";
 // Or import puppeteer from 'puppeteer-core';
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
@@ -100,24 +100,7 @@ const juejinTop = async () => {
 
   console.log(articleList);
 
-  // 使用 fs.writeFile 写入文件
-  const filePath = path.join(
-    __dirname,
-    `download/${moment(moment.now()).format("YYYY-MM-DD")}.json`
-  );
-  // 检查文件夹是否存在，如果不存在则创建
-  const folderPath = path.dirname(filePath);
-  console.log(folderPath);
-  if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath);
-  }
-  await fs.writeFileSync(filePath, JSON.stringify(articleList), (err) => {
-    if (err) {
-      console.error("写入文件时出现错误：", err);
-    } else {
-      console.log("文件写入成功。");
-    }
-  });
+  await fsWrite("juejinTop", articleList);
   await browser.close();
 };
 
