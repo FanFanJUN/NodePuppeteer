@@ -24,21 +24,32 @@ const juejinTop = async () => {
   );
 
   // Navigate the page to a URL.
-  await page.goto("https://juejin.cn/hot/articles/6809637767543259144", {
+  await page.goto("https://juejin.cn/hot/articles", {
     waitUntil: "load",
     timeout: 60000,
   });
-  /* await page.waitForSelector(
+  await page.waitForSelector(
     ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3) a span"
   );
 
   // 找到特定元素并触发点击事件
-  const ele = await page.$(
-    ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3)"
+  await page.$eval(
+    ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3) a span",
+    (element) => {
+      element.click();
+    }
   );
-  console.log(ele);
 
-  await ele.click(); */
+  // await page.click(
+  //   ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3) a span"
+  // );
+
+  // const ele = await page.$(
+  //   ".hot-side-nav .vertical .nav-item-wrap:nth-child(2) .sub-nav-item-wrap .nav-item-content:nth-child(3) a span"
+  // );
+
+  // await ele.click();
+  // return;
 
   //  page.$$eva 获取页面上所有的 <a> 元素的文本内容，但不能直接触发点击事件
   /* const resc = await page.$$eval(
