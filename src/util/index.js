@@ -28,8 +28,8 @@ const fsWrite = async (folder, data, fileType = "json") => {
 };
 
 const fsMd = (data, bigTitle = "") => {
-  const dataList = data.map((item) => `🎉  [${item.title}](${item.url})<br>`);
-  return `## ${bigTitle}<br><br>` + dataList.join(" ");
+  const dataList = data.map((item) => `🎉  [${item.title}](${item.url})  \n`);
+  return `## ${bigTitle}  \n` + dataList.join("");
 };
 
 export { __dirname, fsWrite, fsMd };
