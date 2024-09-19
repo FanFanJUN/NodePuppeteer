@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { fsMd, fsWrite } from "./util/index.js";
+import { fsMd, fsWrite } from "../util/index.js";
 // Or import puppeteer from 'puppeteer-core';
 const juejinTop = async () => {
   // Launch the browser and open a new blank page
@@ -97,11 +97,14 @@ const juejinTop = async () => {
     );
     console.log(articleTitle);
     await res[index].click();
-    const newPagePromise = new Promise((x) =>
-      browser.once("targetcreated", (target) => x(target.page()))
-    ); // 声明变量
-    let newPage = await newPagePromise;
-    await page.waitForTimeout(1000 * 2);
+
+    const newPage = await page.target().page();
+
+    // 方式一
+    // const newPagePromise = new Promise((x) =>
+    //   browser.once("targetcreated", (target) => x(target.page()))
+    // ); // 声明变量
+    // let newPage = await newPagePromise;
     console.log(newPage.url());
     articleList.push({
       title: articleTitle,

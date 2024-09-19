@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
-import { fsWrite } from "./util/index.js";
-import { fsMd } from "./util/index.js";
+import { fsWrite } from "../util/index.js";
+import { fsMd } from "../util/index.js";
 // Or import puppeteer from 'puppeteer-core';
 
 const test = async () => {

@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { fsMd, fsWrite } from "./util/index.js";
+import { fsMd, fsWrite } from "../util/index.js";
 // Or import puppeteer from 'puppeteer-core';
 
 const getPageData = async () => {

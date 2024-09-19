@@ -1,7 +1,10 @@
-import npmDown from "./src/npmDown.js";
-import specialCertificate from "./src/specialCertificate.js";
-import juejinTop from "./src/juejinTop.js";
-import ruanyifeng from "./src/ruanyifeng.js";
+import {
+  npmDown,
+  specialCertificate,
+  juejinTop,
+  ruanyifeng,
+  zhangxinxu,
+} from "./src/js/index.js";
 console.log(process.argv);
 
 const scripts = {
@@ -9,6 +12,7 @@ const scripts = {
   special_certificate: specialCertificate,
   juejinTop: juejinTop,
   ruanyifeng: ruanyifeng,
+  zhangxinxu,
 };
 const scriptName = process.argv[2];
 // 自执行js

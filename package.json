@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "juejinTop": "node index.js juejinTop",
     "ruanyifeng": "node index.js ruanyifeng",
-    "npmDown": "node index.js npmDown"
+    "npmDown": "node index.js npmDown",
+    "zhangxinxu": "node index.js zhangxinxu"
   },
   "type": "module",
   "keywords": [
