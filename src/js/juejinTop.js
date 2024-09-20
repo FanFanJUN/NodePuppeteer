@@ -98,13 +98,10 @@ const juejinTop = async () => {
     console.log(articleTitle);
     await res[index].click();
 
-    const newPage = await page.target().page();
-
-    // 方式一
-    // const newPagePromise = new Promise((x) =>
-    //   browser.once("targetcreated", (target) => x(target.page()))
-    // ); // 声明变量
-    // let newPage = await newPagePromise;
+    const newPagePromise = new Promise((x) =>
+      browser.once("targetcreated", (target) => x(target.page()))
+    ); // 声明变量
+    let newPage = await newPagePromise;
     console.log(newPage.url());
     articleList.push({
       title: articleTitle,
