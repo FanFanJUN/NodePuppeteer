@@ -19,8 +19,23 @@ const getPageData = async () => {
     ".module-categories .module-content .module-list li.module-list-item"
   );
 
-  const res = await page.$$eval(
-    "#alpha-inner .module-categories .module-content .module-list li.module-list-item a",
+  const res = await page.evaluate(() => {
+    const elements = document.querySelectorAll(
+      "#alpha-inner .module-categories .module-content .module-list li.module-list-item a"
+    );
+    const dateEle = document.querySelectorAll(
+      "#alpha-inner .module-categories .module-content .module-list li.module-list-item"
+    );
+    return Array.from(elements)?.map((element, index) => {
+      return {
+        title: `${dateEle[index].innerText}${element.innerText}`,
+        url: element.href,
+      };
+    });
+  });
+
+  const headerList = await page.$$eval(
+    "#alpha-inner .asset-header .entry-title a",
     (elements) => {
       return elements.map((element) => {
         return {
@@ -32,7 +47,7 @@ const getPageData = async () => {
   );
   const title = await page.title();
 
-  await fsWrite("ruanyifeng", fsMd(res, title), "md");
+  await fsWrite("ruanyifeng", fsMd([...headerList, ...res], title), "md");
   await browser.close();
 };
 
