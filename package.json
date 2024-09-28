@@ -18,8 +18,10 @@
   "author": "licai@1981824361@qq.com",
   "license": "ISC",
   "dependencies": {
+    "@nut-tree/nut-js": "^3.1.2",
     "axios": "^1.7.7",
     "moment": "^2.30.1",
-    "puppeteer": "^19.8.3"
+    "puppeteer": "^19.8.3",
+    "robotjs": "^0.6.0"
   }
 }
