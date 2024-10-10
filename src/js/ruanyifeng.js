@@ -28,7 +28,7 @@ const getPageData = async () => {
     );
     return Array.from(elements)?.map((element, index) => {
       return {
-        title: `${dateEle[index].innerText}${element.innerText}`,
+        title: `${dateEle[index].innerText}`,
         url: element.href,
       };
     });

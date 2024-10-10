@@ -52,8 +52,8 @@ async function xunHuanGet(page) {
       }
       if (
         index === articleDateList.length - 1 &&
-        dateMonth > 1 &&
-        dateMonth < month
+        Number(dateMonth) > 1 &&
+        Number(dateMonth) < month
       ) {
         continueFlag = true;
       }
