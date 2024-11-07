@@ -4,7 +4,7 @@ import moment from "moment";
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-const fsWrite = async (folder, data, fileType = "json") => {
+const fsWrite = async (folder, data, fileType = "json", SDate = "") => {
   // 使用 fs.writeFile 写入文件
   // 检查文件夹是否存在，如果不存在则创建
   const folderPath =
@@ -12,9 +12,9 @@ const fsWrite = async (folder, data, fileType = "json") => {
 
   const filePath = path.join(
     folderPath,
-    `/${moment(moment.now()).format("YYYY-MM-DD")}.${fileType}`
+    `/${SDate || moment(moment.now()).format("YYYY-MM-DD")}.${fileType}`
   );
-  console.log(folderPath);
+  console.log(filePath);
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath);
   }

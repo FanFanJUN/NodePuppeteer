@@ -3,9 +3,10 @@ import puppeteer from "puppeteer";
 import { fsMd, fsWrite } from "../util/index.js";
 // Or import puppeteer from 'puppeteer-core';
 
-const [year, month] = moment(moment.now()).format("YYYY-M").split("-");
+const currentYear = moment(moment.now()).format("YYYY");
 let articleAll = [];
 let pageNum = 1;
+let year = null;
 
 async function xunHuanGet(page) {
   console.log("pageNum", pageNum);
@@ -38,9 +39,10 @@ async function xunHuanGet(page) {
     );
 
     articleDateList.forEach((item, index) => {
-      const [dateYear, dateMonth] = moment(item, "YYYY-M")
-        .format("YYYY-M")
+      const [dateYear, dateMonth, dateDay] = moment(item, "YYYY-M-D")
+        .format("YYYY-M-D")
         .split("-");
+      console.log("dateYear", year, dateYear, dateMonth, dateDay);
       if (dateYear === year) {
         articleList.push({
           ...aList[index],
@@ -49,13 +51,16 @@ async function xunHuanGet(page) {
           }`,
           date: item,
         });
-      }
-      if (
-        index === articleDateList.length - 1 &&
-        Number(dateMonth) > 1 &&
-        Number(dateMonth) < month
-      ) {
-        continueFlag = true;
+        if (index === articleDateList.length - 1) {
+          if (Number(dateMonth) > 1) {
+            continueFlag = true;
+          } else if (Number(dateMonth) === 1 && Number(dateDay) <= 31) {
+          }
+        }
+      } else {
+        if (Number(dateYear) > Number(year)) {
+          continueFlag = true;
+        }
       }
     });
   }
@@ -68,7 +73,10 @@ async function xunHuanGet(page) {
   }
 }
 
-const getPageData = async () => {
+const getPageData = async (params) => {
+  console.log("param", params);
+  const { param } = params;
+  year = param[3];
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({
     headless: true,
@@ -91,7 +99,12 @@ const getPageData = async () => {
   await xunHuanGet(page);
   console.log(articleAll);
   const title = await page.title();
-  await fsWrite("zhangxinxu", fsMd(articleAll, title), "md");
+  await fsWrite(
+    "zhangxinxu",
+    fsMd(articleAll, title),
+    "md",
+    year === currentYear ? null : `${year}年`
+  );
   await browser.close();
 };
 

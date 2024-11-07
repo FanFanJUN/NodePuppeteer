@@ -8,7 +8,7 @@
     "juejinTop": "node index.js juejinTop",
     "ruanyifeng": "node index.js ruanyifeng",
     "npmDown": "node index.js npmDown",
-    "zhangxinxu": "node index.js zhangxinxu"
+    "zhangxinxu": "node index.js zhangxinxu 2020"
   },
   "type": "module",
   "keywords": [
