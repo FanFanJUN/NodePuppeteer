@@ -3,7 +3,8 @@ import { fsMd, fsWrite } from "../util/index.js";
 import moment from "moment";
 // Or import puppeteer from 'puppeteer-core';
 
-const getPageData = async () => {
+const getPageData = async (params) => {
+  const { param } = params;
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({
     headless: true,
@@ -12,7 +13,7 @@ const getPageData = async () => {
   const page = await browser.newPage();
 
   // Navigate the page to a URL.
-  await page.goto("https://www.ruanyifeng.com/blog/weekly/", {
+  await page.goto(param[3] || "https://www.ruanyifeng.com/blog/weekly/", {
     waitUntil: "load",
     timeout: 60000,
   });
@@ -49,7 +50,7 @@ const getPageData = async () => {
   Object.keys(resObj).forEach(async (item) => {
     if (resObj[item]?.length) {
       await fsWrite(
-        "ruanyifeng",
+        param[4] || "ruanyifeng",
         fsMd(resObj[item]),
         "md",
         moment(moment(new Date())).format("YYYY") === resObj[item]?.[0].date
