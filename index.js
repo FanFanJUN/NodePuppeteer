@@ -4,6 +4,7 @@ import {
   juejinTop,
   ruanyifeng,
   zhangxinxu,
+  zhangxinxuAll,
 } from "./src/js/index.js";
 console.log(process.argv);
 
@@ -13,6 +14,7 @@ const scripts = {
   juejinTop: juejinTop,
   ruanyifeng: ruanyifeng,
   zhangxinxu,
+  zhangxinxuAll: zhangxinxuAll,
 };
 const scriptName = process.argv[2];
 // 自执行js

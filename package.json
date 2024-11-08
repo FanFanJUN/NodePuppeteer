@@ -9,7 +9,8 @@
     "ruanyifeng_1": "node index.js ruanyifeng https://www.ruanyifeng.com/blog/weekly/ 阮一峰周刊",
     "ruanyifeng_2": "node index.js ruanyifeng https://www.ruanyifeng.com/blog/developer/ 阮一峰开发者手册",
     "npmDown": "node index.js npmDown",
-    "zhangxinxu": "node index.js zhangxinxu 2019"
+    "zhangxinxu": "node index.js zhangxinxu 2024",
+    "zhangxinxuAll": "node index.js zhangxinxuAll"
   },
   "type": "module",
   "keywords": [

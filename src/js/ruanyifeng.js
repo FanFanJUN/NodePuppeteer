@@ -38,7 +38,6 @@ const getPageData = async (params) => {
     });
   });
 
-  const title = await page.title();
   let resObj = {};
   res?.forEach((item) => {
     if (!resObj[item.date]) {
