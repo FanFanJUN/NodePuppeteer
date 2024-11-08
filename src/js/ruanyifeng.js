@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import { fsMd, fsWrite } from "../util/index.js";
+import moment from "moment";
 // Or import puppeteer from 'puppeteer-core';
 
 const getPageData = async () => {
@@ -11,7 +12,7 @@ const getPageData = async () => {
   const page = await browser.newPage();
 
   // Navigate the page to a URL.
-  await page.goto("https://www.ruanyifeng.com/blog/archives.html", {
+  await page.goto("https://www.ruanyifeng.com/blog/weekly/", {
     waitUntil: "load",
     timeout: 60000,
   });
@@ -24,30 +25,39 @@ const getPageData = async () => {
       "#alpha-inner .module-categories .module-content .module-list li.module-list-item a"
     );
     const dateEle = document.querySelectorAll(
-      "#alpha-inner .module-categories .module-content .module-list li.module-list-item"
+      "#alpha-inner .module-categories .module-content .module-list li.module-list-item .RankBar .hint"
     );
     return Array.from(elements)?.map((element, index) => {
+      const date = dateEle[index].innerText.split("@")[1].split("）")[0];
       return {
-        title: `${dateEle[index].innerText}`,
+        title: `${elements[index].innerText}  (${date})`,
         url: element.href,
+        date: date?.split(".")[0],
       };
     });
   });
 
-  const headerList = await page.$$eval(
-    "#alpha-inner .asset-header .entry-title a",
-    (elements) => {
-      return elements.map((element) => {
-        return {
-          title: element.innerText,
-          url: element.href,
-        };
-      });
-    }
-  );
   const title = await page.title();
-
-  await fsWrite("ruanyifeng", fsMd([...headerList, ...res], title), "md");
+  let resObj = {};
+  res?.forEach((item) => {
+    if (!resObj[item.date]) {
+      resObj[item.date] = [item];
+    } else {
+      resObj[item.date].push(item);
+    }
+  });
+  Object.keys(resObj).forEach(async (item) => {
+    if (resObj[item]?.length) {
+      await fsWrite(
+        "ruanyifeng",
+        fsMd(resObj[item]),
+        "md",
+        moment(moment(new Date())).format("YYYY") === resObj[item]?.[0].date
+          ? null
+          : resObj[item]?.[0].date + "年"
+      );
+    }
+  });
   await browser.close();
 };
 

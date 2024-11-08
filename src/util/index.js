@@ -28,7 +28,9 @@ const fsWrite = async (folder, data, fileType = "json", SDate = "") => {
 };
 
 const fsMd = (data, bigTitle = "") => {
-  const dataList = data.map((item) => `🎉  [${item.title}](${item.url})  \n`);
+  const dataList = data.map(
+    (item) => `🎉  [${item.title}](${item.url ?? "-"})  \n`
+  );
   return `## ${bigTitle}  \n` + dataList.join("");
 };
 
