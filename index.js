@@ -6,6 +6,7 @@ import {
   zhangxinxu,
   zhangxinxuAll,
 } from "./src/js/index.js";
+import { readJsonFile } from "./src/util/index.js";
 console.log(process.argv);
 
 const scripts = {
@@ -15,6 +16,7 @@ const scripts = {
   ruanyifeng: ruanyifeng,
   zhangxinxu,
   zhangxinxuAll: zhangxinxuAll,
+  readJsonFile: readJsonFile,
 };
 const scriptName = process.argv[2];
 // 自执行js

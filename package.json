@@ -10,7 +10,8 @@
     "ruanyifeng_2": "node index.js ruanyifeng https://www.ruanyifeng.com/blog/developer/ 阮一峰开发者手册",
     "npmDown": "node index.js npmDown",
     "zhangxinxu": "node index.js zhangxinxu 2024",
-    "zhangxinxuAll": "node index.js zhangxinxuAll"
+    "zhangxinxuAll": "node index.js zhangxinxuAll",
+    "readJsonFile": "node index.js readJsonFile"
   },
   "type": "module",
   "keywords": [
